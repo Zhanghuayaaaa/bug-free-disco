@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  body { 
+    font-family: system-ui; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh; 
+    margin: 0; 
+    background: #f5f5f7; 
+  }
+  .card {
+    background: white;
+    padding: 40px 30px;
+    border-radius: 30px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    text-align: center;
+    width: 280px;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .emoji { font-size: 40px; margin-bottom: 5px; }
+  .title { color: #888; font-size: 14px; font-weight: 500; letter-spacing: 2px; }
+  #count { 
+    font-size: 80px; 
+    font-weight: 700; 
+    margin: 10px 0; 
+    color: #1d1d1f; 
+    transition: transform 0.15s;
+  }
+  #count.pop { transform: scale(1.2); }
+  .btn {
+    background: #007aff;
+    color: white;
+    border: none;
+    padding: 16px 0;
+    width: 100%;
+    border-radius: 60px;
+    font-size: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    box-shadow: 0 4px 12px rgba(0,122,255,0.3);
+    touch-action: manipulation;
+  }
+  .btn:active { transform: scale(0.94); background: #0055b3; }
+  .reset-btn {
+    background: transparent;
+    color: #999;
+    border: 1px solid #e5e5ea;
+    padding: 12px 0;
+    width: 100%;
+    border-radius: 60px;
+    font-size: 15px;
+    margin-top: 12px;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .reset-btn:active { background: #f5f5f5; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="emoji">🎯</div>
+  <div class="title">点击次数</div>
+  <div id="count">0</div>
+  <button class="btn" id="mainBtn">👆 点我 +1</button>
+  <button class="reset-btn" id="resetBtn">↻ 重置归零</button>
+</div>
+<script>
+  let count = 0;
+  const countEl = document.getElementById('count');
+  
+  document.getElementById('mainBtn').addEventListener('click', function(e) {
+    count++;
+    countEl.textContent = count;
+    // 点击时弹跳动画
+    countEl.classList.add('pop');
+    setTimeout(() => countEl.classList.remove('pop'), 150);
+    // 震动反馈（如果手机支持）
+    if (navigator.vibrate) navigator.vibrate(10);
+  });
+
+  document.getElementById('resetBtn').addEventListener('click', function() {
+    count = 0;
+    countEl.textContent = count;
+    if (navigator.vibrate) navigator.vibrate(5);
+  });
+</script>
+</body>
+</html>
